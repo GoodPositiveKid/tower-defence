@@ -1,0 +1,26 @@
+export function drawSlots(self) {
+    for(var i =1;i<6;i++) {
+        self.add.image((i*40)+20,570,'slot');
+    }
+}
+export let pocket = [null,null,null,null,null];
+export let slotbetweensx = [[40,79],[80,119],[120,159],[160,199],[200,240]];
+export function touchingHotbar(pointer) {
+    var x = pointer.x;
+    var y = pointer.y;
+    if ((x>=40)&&(x<=240)&&(y>=560)&&(y<=600)) {
+        return true;
+    }
+    return false;
+};
+export function whichSlot(pointer) {
+    //bug: only returns undefined
+    //illegal return statement
+    var x = pointer.x;
+    for (var i in slotbetweensx) {
+        if ((x>=slotbetweensx[i][0])&&(x<=slotbetweensx[i][0])) {
+            console.log(i)
+            return i;
+        };
+    };
+};
