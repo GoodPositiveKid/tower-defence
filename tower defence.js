@@ -17,7 +17,6 @@ var config = {
         }
     }
 };
-var money = 50;
 var game = new Phaser.Game(config);
 function preload() {
     this.load.image('slot','slot.png')
@@ -39,7 +38,7 @@ function create() {
     graphics.lineTo(554,300);
     graphics.lineTo(554,589);
     graphics.strokePath();
-    this.moneytext = this.add.text(70,20,'money: $'+money,{fontsize:30,color:'#FF0000'});
+    this.moneytext = this.add.text(70,20,'money: $'+inventory.money,{fontsize:30,color:'#FF0000'});
     this.shoptext1 = this.add.text(460,80,'Red Cannon:$25',{fontsize:12,color:'#0000FF'})
     this.cannon1group = this.physics.add.group({defaultkey:'redcannon'})
     this.enemygroup = this.physics.add.group({defaultkey:'enemy'});
@@ -56,8 +55,8 @@ function create() {
         }
     })
     this.shopIcon1.on('pointerdown',function(){
-        if (money>24){ 
-        money -= 25;
+        if ((inventory.money>24)&&(inventory.firstEmpty < 5)){ 
+        inventory.changemoney(-25);
         inventory.addToHotbar('redcannon');
         }
     })
@@ -68,7 +67,7 @@ function create() {
     })
 }
 function refresh() {
-    this.moneytext.text = 'money: $'+money;
+    this.moneytext.text = 'money: $'+inventory.money;
     inventory.putItems(this);
     if ((this.health<1)||(this.shopButton.data.values.shop==1)) {
         if (this.health<1) {

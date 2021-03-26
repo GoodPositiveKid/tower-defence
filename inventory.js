@@ -1,4 +1,8 @@
-var firstEmpty = 0;
+export let firstEmpty = 0;
+export let money = 50;
+export function changemoney(amount) {
+    money += amount;
+}
 export function drawSlots(self) {
     for(var i =1;i<6;i++) {
         self.add.image((i*40)+20,570,'slot');
