@@ -58,6 +58,7 @@ function create() {
     this.shopIcon1.on('pointerdown',function(){
         if (money>24){ 
         money -= 25;
+        inventory.addToHotbar('redcannon');
         }
     })
     this.input.on('pointerdown',function(pointer){
@@ -68,6 +69,7 @@ function create() {
 }
 function refresh() {
     this.moneytext.text = 'money: $'+money;
+    inventory.putItems(this);
     if ((this.health<1)||(this.shopButton.data.values.shop==1)) {
         if (this.health<1) {
             this.camera.shake(700)

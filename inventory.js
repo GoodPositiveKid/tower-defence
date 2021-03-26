@@ -1,3 +1,4 @@
+var firstEmpty = 0;
 export function drawSlots(self) {
     for(var i =1;i<6;i++) {
         self.add.image((i*40)+20,570,'slot');
@@ -24,3 +25,14 @@ export function whichSlot(pointer) {
         };
     };
 };
+export function putItems(self) {
+    for(var i in pocket) {
+        if (pocket[i]) {
+            self.add.image(((parseInt(i)+1)*40)+20,570,pocket[i]).displayWidth = 30;
+        }
+    }
+}
+export function addToHotbar(thing) {
+    pocket[firstEmpty] = thing;
+    firstEmpty ++;
+}
