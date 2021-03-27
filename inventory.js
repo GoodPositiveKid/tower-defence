@@ -20,7 +20,6 @@ export function touchingHotbar(pointer) {
 };
 export function whichSlot(pointer) {
     //bug: only returns undefined
-    //illegal return statement
     var x = pointer.x;
     for (var i in slotbetweensx) {
         if ((x>=slotbetweensx[i][0])&&(x<=slotbetweensx[i][0])) {
