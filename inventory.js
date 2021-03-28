@@ -19,11 +19,9 @@ export function touchingHotbar(pointer) {
     return false;
 };
 export function whichSlot(pointer) {
-    //bug: only returns undefined
     var x = pointer.x;
     for (var i in slotbetweensx) {
-        if ((x>=slotbetweensx[i][0])&&(x<=slotbetweensx[i][0])) {
-            console.log(i)
+        if ((x>=slotbetweensx[i][0])&&(x<=slotbetweensx[i][1])) {
             return i;
         };
     };
