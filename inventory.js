@@ -37,3 +37,6 @@ export function addToHotbar(thing) {
     pocket[firstEmpty] = thing;
     firstEmpty ++;
 };
+export function updateCursor(self,whichslot) {
+    self.pointer.x = ((parseInt(whichslot)+1)*40)+20 
+}

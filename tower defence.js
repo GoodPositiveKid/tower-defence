@@ -17,12 +17,14 @@ var config = {
         }
     }
 };
+var hotbarslot = 0
 var game = new Phaser.Game(config);
 function preload() {
     this.load.image('slot','slot.png')
     this.load.image('redcannon','cannon_red.png');
     this.load.image('enemy','enemy.png');
     this.load.image('shop',"shop.png");
+    this.load.image('arrow',"Arrow.png")
 }
 function create() {
     var graphics = this.add.graphics();
@@ -47,6 +49,7 @@ function create() {
     this.shopIcon1 = this.add.sprite(530,50,'redcannon').setInteractive();
     this.shopButton.data.set('shop',0);
     inventory.drawSlots(this);
+    this.pointer = this.add.sprite(60,540,'arrow')
     this.shopButton.on('pointerdown',function(pointer){
         if (this.data.values.shop == 1) {
             this.data.values.shop -=1;
@@ -62,11 +65,12 @@ function create() {
     })
     this.input.on('pointerdown',function(pointer){
         if (inventory.touchingHotbar(pointer)) {
-            console.log(inventory.whichSlot(pointer));
+            hotbarslot = inventory.whichSlot(pointer);
         }
     })
 }
 function refresh() {
+    inventory.updateCursor(this,hotbarslot)
     this.moneytext.text = 'money: $'+inventory.money;
     inventory.putItems(this);
     if ((this.health<1)||(this.shopButton.data.values.shop==1)) {
