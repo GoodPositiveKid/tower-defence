@@ -30,7 +30,9 @@ export function putItems(self) {
     for(var i in pocket) {
         if (pocket[i]) {
             self.add.image(((parseInt(i)+1)*40)+20,570,pocket[i]).displayWidth = 30;
-        };
+        } else {
+            self.add.rectangle(60+(parseInt(i)*40),571,30,30,16777215)
+        }
     };
 };
 export function addToHotbar(thing) {
