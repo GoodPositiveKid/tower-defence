@@ -23,8 +23,6 @@ export function path1(child,self,drawPath,graphics) {
     };
     if (child.y == 580) {
         self.enemygroup.killAndHide(child);
-        self.numenemys -= 1;
-        self.health -= 4;
         done = "yes"
     }
 }
@@ -50,8 +48,6 @@ export function path2(child,self,drawPath,graphics) {
     };
     if (child.y == 580) {
         self.enemygroup.killAndHide(child);
-        self.numenemys -= 1;
-        self.health -= 4;
         done = "yes"
     }
 }

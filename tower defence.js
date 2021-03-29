@@ -68,8 +68,11 @@ function create() {
 }
 function refresh() {
     if (enemy.done) {
+        console.log(enemy.done);
         this.random = (Math.floor(Math.random() * Math.floor(2)))
         enemy.notDone();
+        this.numenemys -= 1;
+        this.health -= 4;
     }
     inventory.updateCursor(this,hotbarslot)
     this.moneytext.text = 'money: $'+inventory.money;
