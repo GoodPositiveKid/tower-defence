@@ -1,3 +1,4 @@
+import * as enemy from "/enemy.js"
 import * as inventory from "/inventory.js"
 var config = {
     type: Phaser.AUTO,
@@ -32,14 +33,8 @@ function create() {
     this.healthobj= document.getElementById("health");
     this.healthobj.value=this.health;
     this.camera=this.cameras.main;
+    enemy.path1(null,this,true,graphics);
     this.camera.setBackgroundColor("#00FF00");
-    graphics.lineStyle(70, 9849600);
-    graphics.beginPath();
-    graphics.moveTo(20,20);
-    graphics.lineTo(20,300);
-    graphics.lineTo(554,300);
-    graphics.lineTo(554,589);
-    graphics.strokePath();
     this.moneytext = this.add.text(70,20,'money: $'+inventory.money,{fontsize:30,color:'#FF0000'});
     this.shoptext1 = this.add.text(460,80,'Red Cannon:$25',{fontsize:12,color:'#0000FF'})
     this.cannon1group = this.physics.add.group({defaultkey:'redcannon'})
@@ -94,22 +89,7 @@ function refresh() {
         }
         this.healthobj.value=this.health;
         this.enemygroup.children.iterate(function (child){
-            if (child.y < 299) {
-                child.y+=1
-            } else if ((child.y>298)&&(child.x<554)) {
-                child.x+= 1
-            } else if (child.x > 553) {
-                child.y += 1
-            };
-            if (child.y == 580) {
-                this.enemygroup.killAndHide(child);
-                this.numenemys -= 1;
-                this.health -= 4;
-            }
-            if (child.y == 400) {
-                this.health += 2;
-                this.numenemys -= 1;
-            }
+            enemy.path1(child,this);
         },this);
         //code to close store
         this.shopIcon1.visible = false;
