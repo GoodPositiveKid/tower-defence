@@ -61,7 +61,10 @@ function create() {
     this.input.on('pointerdown',function(pointer){
         if (inventory.touchingHotbar(pointer)) {
             hotbarslot = inventory.whichSlot(pointer);
+        } else if ((pointer.rightButtonDown())&&(!(inventory.touchingHotbar(pointer)))){
+            //this.cannon1group.create(pointer.x,pointer.y,'redcannon');
         }
+        
     })
 }
 function refresh() {
