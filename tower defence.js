@@ -1,5 +1,14 @@
 import * as enemy from "/enemy.js"
 import * as inventory from "/inventory.js"
+if (document.addEventListener) {
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    }, false);
+  } else {
+    document.attachEvent('oncontextmenu', function() {
+      window.event.returnValue = false;
+    });
+  }
 var config = {
     type: Phaser.AUTO,
     parent:'game',
@@ -18,6 +27,7 @@ var config = {
         }
     }
 };
+var place = [null,null,null]
 var hotbarslot = 0
 var game = new Phaser.Game(config);
 function preload() {
@@ -61,13 +71,23 @@ function create() {
     this.input.on('pointerdown',function(pointer){
         if (inventory.touchingHotbar(pointer)) {
             hotbarslot = inventory.whichSlot(pointer);
-        } else if ((pointer.rightButtonDown())&&(!(inventory.touchingHotbar(pointer)))){
-            //this.cannon1group.create(pointer.x,pointer.y,'redcannon');
+        } else if ((inventory.pocket[hotbarslot])&&(pointer.rightButtonDown())&&(!(inventory.touchingHotbar(pointer)))){
+            place = [pointer.x,pointer.y,null]
+            if (inventory.pocket[hotbarslot] == "redcannon"){
+                place[2] = "cannon1group"
+            }
         }
         
     })
 }
 function refresh() {
+    if (place[2]) {
+        var codestring = ""
+        codestring += "this." + place[2] + ".create(" + place[0] +"," + place[1] + ",'redcannon');"
+        eval(codestring);
+        place = [null,null,null]
+        inventory.pocket[hotbarslot] = null;
+    }
     inventory.updateCursor(this,hotbarslot)
     this.moneytext.text = 'money: $'+inventory.money;
     inventory.putItems(this);
