@@ -44,6 +44,7 @@ function create() {
     this.healthobj.value=this.health;
     this.camera=this.cameras.main;
     enemy.path1(null,this,true,graphics);
+    enemy.path2(null,this,true,graphics);
     this.camera.setBackgroundColor("#00FF00");
     this.moneytext = this.add.text(70,20,'money: $'+inventory.money,{fontsize:30,color:'#FF0000'});
     this.shoptext1 = this.add.text(460,80,'Red Cannon:$25',{fontsize:12,color:'#0000FF'})
@@ -54,6 +55,7 @@ function create() {
     this.shopIcon1 = this.add.sprite(530,50,'redcannon').setInteractive();
     this.shopButton.data.set('shop',0);
     inventory.drawSlots(this);
+    this.random = (Math.floor(Math.random() * Math.floor(2)))
     this.pointer = this.add.sprite(60,540,'arrow')
     this.shopButton.on('pointerdown',function(pointer){
         if (this.data.values.shop == 1) {
@@ -81,6 +83,13 @@ function create() {
     })
 }
 function refresh() {
+    if (enemy.done) {
+        console.log(enemy.done);
+        this.random = (Math.floor(Math.random() * Math.floor(2)))
+        enemy.notDone();
+        this.numenemys -= 1;
+        this.health -= 4;
+      
     if (place[2]) {
         var codestring = ""
         codestring += "this." + place[2] + ".create(" + place[0] +"," + place[1] + ",'"+inventory.pocket[hotbarslot]+"');"
@@ -106,13 +115,17 @@ function refresh() {
             this.shoptext1.visible=true;
         } 
     } else {
-        if (this.numenemys < 2) {
-            this.enemygroup.create(20,20,'enemy');
+        if (this.numenemys < 1) {
+            this.enemygroup.create(300,20,'enemy');
             this.numenemys += 1;
         }
         this.healthobj.value=this.health;
         this.enemygroup.children.iterate(function (child){
-            enemy.path1(child,this);
+            if (this.random == 1) {
+                enemy.path1(child,this);
+            } else {
+                enemy.path2(child,this);
+            }
         },this);
         //code to close store
         this.shopIcon1.visible = false;
