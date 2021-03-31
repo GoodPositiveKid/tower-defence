@@ -74,7 +74,7 @@ function create() {
         } else if ((inventory.pocket[hotbarslot])&&(pointer.rightButtonDown())&&(!(inventory.touchingHotbar(pointer)))){
             place = [pointer.x,pointer.y,null]
             if (inventory.pocket[hotbarslot] == "redcannon"){
-                place[2] = "cannon1group"
+                place[2] = "cannon1group";
             }
         }
         
@@ -83,7 +83,7 @@ function create() {
 function refresh() {
     if (place[2]) {
         var codestring = ""
-        codestring += "this." + place[2] + ".create(" + place[0] +"," + place[1] + ",'redcannon');"
+        codestring += "this." + place[2] + ".create(" + place[0] +"," + place[1] + ",'"+inventory.pocket[hotbarslot]+"');"
         eval(codestring);
         place = [null,null,null]
         inventory.pocket[hotbarslot] = null;
