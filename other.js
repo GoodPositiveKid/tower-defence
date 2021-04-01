@@ -28,7 +28,8 @@ export function path1(child,self,drawPath,graphics) {
     }
 }
 }
-export function bulletpath1(self,x,y,angle,distance) {
-    var bullet = self.add.sprite(x,y,'');
-    bullet.x +=distance;
+export function bulletcreate1(self,x,y,angle) {
+    var bullet = self.bulletgroup.create(x,y,'');
+    bullet.angle = angle;
+    bullet.lifespan = 800;
 }

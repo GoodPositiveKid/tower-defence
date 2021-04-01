@@ -49,6 +49,15 @@ function create() {
     this.shoptext1 = this.add.text(460,80,'Red Cannon:$25',{fontsize:12,color:'#0000FF'})
     this.cannon1group = this.physics.add.group({defaultkey:'redcannon'})
     this.enemygroup = this.physics.add.group({defaultkey:'enemy'});
+    this.bulletgroup = this.physics.add.group({defaultkey:''})
+    this.physics.add.overlap(this.bulletgroup,this.enemygroup,killEnemy,null,this);
+    this.time.addEvent({delay:700,callback:()=>{
+        if (!((this.health<1)||(this.shopButton.data.values.shop==1))) {
+        this.cannon1group.children.iterate(function (child){
+            other.bulletcreate1(this,child.x+35,child.y,child.angle);
+        },this)
+    }
+    },loop:true});
     this.numenemys = 0;
     this.shopButton = this.add.sprite(575,20,'shop').setInteractive().setDataEnabled();
     this.shopIcon1 = this.add.sprite(530,50,'redcannon').setInteractive();
@@ -89,7 +98,7 @@ function refresh() {
         inventory.pocket[hotbarslot] = null;
     }
     inventory.updateCursor(this,hotbarslot)
-    this.moneytext.text = 'money: $'+inventory.money;
+    this.moneytext.text = 'money: $'+Math.round(inventory.money);
     inventory.putItems(this);
     if ((this.health<1)||(this.shopButton.data.values.shop==1)) {
         if (this.health<1) {
@@ -114,11 +123,23 @@ function refresh() {
         this.enemygroup.children.iterate(function (child){
             other.path1(child,this);
         },this);
-        this.cannon1group.children.iterate(function (child){
-            other.bulletpath1(this,child.x,child.y,10,50);
+        this.bulletgroup.children.iterate(function (child) {
+            var vec = this.physics.velocityFromAngle(child.angle, 1);
+            var vx = vec.x * 300;
+            var vy = vec.y * 300;
+            child.setVelocity(vx,vy);
         },this)
         //code to close store
         this.shopIcon1.visible = false;
         this.shoptext1.visible=false;
     }
 }
+function killEnemy(bullet,enemy){
+    this.enemygroup.killAndHide(enemy);
+    this.bulletgroup.killAndHide(bullet);
+    enemy.body.enable=false;
+    bullet.body.enable=false;
+    inventory.changemoney(0.2);
+    this.numenemys -= 1;
+    this.health += 5;
+};
