@@ -91,9 +91,7 @@ function create() {
 }
 function refresh() {
     if (place[2]) {
-        var codestring = ""
-        codestring += "this." + place[2] + ".create(" + place[0] +"," + place[1] + ",'"+inventory.pocket[hotbarslot]+"');"
-        eval(codestring);
+        this[place[2]].create(place[0],place[1],inventory.pocket[hotbarslot]);
         place = [null,null,null]
         inventory.pocket[hotbarslot] = null;
     }
