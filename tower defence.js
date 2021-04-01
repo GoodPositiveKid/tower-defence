@@ -1,4 +1,4 @@
-import * as enemy from "/enemy.js"
+import * as other from "/other.js"
 import * as inventory from "/inventory.js"
 if (document.addEventListener) {
     document.addEventListener('contextmenu', function(e) {
@@ -43,7 +43,7 @@ function create() {
     this.healthobj= document.getElementById("health");
     this.healthobj.value=this.health;
     this.camera=this.cameras.main;
-    enemy.path1(null,this,true,graphics);
+    other.path1(null,this,true,graphics);
     this.camera.setBackgroundColor("#00FF00");
     this.moneytext = this.add.text(70,20,'money: $'+inventory.money,{fontsize:30,color:'#FF0000'});
     this.shoptext1 = this.add.text(460,80,'Red Cannon:$25',{fontsize:12,color:'#0000FF'})
@@ -112,8 +112,11 @@ function refresh() {
         }
         this.healthobj.value=this.health;
         this.enemygroup.children.iterate(function (child){
-            enemy.path1(child,this);
+            other.path1(child,this);
         },this);
+        this.cannon1group.children.iterate(function (child){
+            other.bulletpath1(this,child.x,child.y,10,50);
+        },this)
         //code to close store
         this.shopIcon1.visible = false;
         this.shoptext1.visible=false;
