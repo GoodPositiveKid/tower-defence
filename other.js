@@ -21,11 +21,7 @@ export function path1(child,self,drawPath,graphics) {
         self.enemygroup.killAndHide(child);
         self.numenemys -= 1;
         self.health -= 4;
-    }
-    if (child.y == 400) {
-        self.health += 2;
-        self.numenemys -= 1;
-    }
+    };
 }
 }
 export function bulletcreate1(self,x,y,angle) {
