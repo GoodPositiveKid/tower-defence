@@ -54,7 +54,12 @@ function create() {
     this.time.addEvent({delay:700,callback:()=>{
         if (!((this.health<1)||(this.shopButton.data.values.shop==1))) {
         this.cannon1group.children.iterate(function (child){
-            other.bulletcreate1(this,child.x+35,child.y,child.angle);
+            var first = this.enemygroup.getFirstAlive();
+            if (first) {
+            var angle = Phaser.Math.Angle.Between(child.x,child.y,first.x,first.y);
+            child.angle = angle * Phaser.Math.RAD_TO_DEG;
+            other.bulletcreate1(this,child.x,child.y,child.angle);
+            };
         },this)
     }
     },loop:true});
@@ -113,9 +118,8 @@ function refresh() {
             this.shoptext1.visible=true;
         } 
     } else {
-        if (this.numenemys < 2) {
-            this.enemygroup.create(20,20,'enemy');
-            this.numenemys += 1;
+        if (this.numenemys ==0) {
+            other.wave(this);
         }
         this.healthobj.value=this.health;
         this.enemygroup.children.iterate(function (child){
