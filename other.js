@@ -14,10 +14,11 @@ export function path1(child,self,drawPath,graphics) {
         child.y+=speed;
     } else if ((child.y>298)&&(child.x<554)) {
         child.x+= speed;
-    } else if (child.x > 553) {
+    } else if ((child.x > 553)&&(child.x<580)) {
         child.y += speed;
     };
-    if (child.y >600) {
+    if (child.y == 580) {
+        child.y += 1;
         self.enemygroup.killAndHide(child);
         child.body.enable = false;
         self.numenemys -= 1;
