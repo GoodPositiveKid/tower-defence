@@ -21,7 +21,7 @@ export function path1(child,self,drawPath,graphics) {
         self.enemygroup.killAndHide(child);
         child.body.enable = false;
         self.numenemys -= 1;
-        //self.health -= 4;
+        self.health -= 4;
     };
 }
 }
