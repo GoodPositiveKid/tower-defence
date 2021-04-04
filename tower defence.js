@@ -38,12 +38,9 @@ function preload() {
     this.load.image('arrow',"Arrow.png")
 }
 function create() {
-    var graphics = this.add.graphics();
-    this.health = 100;
-    this.healthobj= document.getElementById("health");
-    this.healthobj.value=this.health;
+    this.graphics = this.add.graphics();
     this.camera=this.cameras.main;
-    other.path1(null,this,true,graphics);
+    other.path1(null,this,true,this.graphics);
     this.camera.setBackgroundColor("#00FF00");
     this.moneytext = this.add.text(70,20,'money: $'+inventory.money,{fontsize:30,color:'#FF0000'});
     this.shoptext1 = this.add.text(460,80,'Red Cannon:$25',{fontsize:12,color:'#0000FF'})
@@ -52,7 +49,7 @@ function create() {
     this.bulletgroup = this.physics.add.group({defaultkey:''})
     this.physics.add.overlap(this.bulletgroup,this.enemygroup,killEnemy,null,this);
     this.time.addEvent({delay:700,callback:()=>{
-        if (!((this.health<1)||(this.shopButton.data.values.shop==1))) {
+        if (!((other.percentage<1)||(this.shopButton.data.values.shop==1))) {
         this.cannon1group.children.iterate(function (child){
             var first = this.enemygroup.getFirstAlive();
             if (first) {
@@ -95,6 +92,7 @@ function create() {
     })
 }
 function refresh() {
+    other.drawAll(this.graphics);
     if (place[2]) {
         this[place[2]].create(place[0],place[1],inventory.pocket[hotbarslot]);
         place = [null,null,null]
@@ -103,8 +101,8 @@ function refresh() {
     inventory.updateCursor(this,hotbarslot)
     this.moneytext.text = 'money: $'+Math.round(inventory.money);
     inventory.putItems(this);
-    if ((this.health<1)||(this.shopButton.data.values.shop==1)) {
-        if (this.health<1) {
+    if ((other.percentage<1)||(this.shopButton.data.values.shop==1)) {
+        if (other.percentage<1) {
             this.camera.shake(700)
             var lose=document.createElement("H1");
             lose.textContent = "YOU LOSE!!!"
@@ -120,13 +118,12 @@ function refresh() {
     } else {
         if (this.numenemys ==0) {
             other.wave(this);
-        }
-        this.healthobj.value=this.health;
+        };
         this.enemygroup.children.iterate(function (child){
             other.path1(child,this);
         },this);
         this.bulletgroup.children.iterate(function (child) {
-            var vec = this.physics.velocityFromAngle(child.angle, 1);
+            var vec = this.physics.velocityFromAngle(child.angle, 0.4);
             var vx = vec.x * 300;
             var vy = vec.y * 300;
             child.setVelocity(vx,vy);
@@ -143,5 +140,4 @@ function killEnemy(bullet,enemy){
     bullet.body.enable=false;
     inventory.changemoney(0.2);
     this.numenemys -= 1;
-    this.health += 5;
 };

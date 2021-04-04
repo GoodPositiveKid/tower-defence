@@ -14,15 +14,14 @@ export function path1(child,self,drawPath,graphics) {
         child.y+=speed;
     } else if ((child.y>298)&&(child.x<554)) {
         child.x+= speed;
-    } else if ((child.x > 553)&&(child.x<580)) {
+    } else if ((child.x > 553)&&(child.x<581)) {
         child.y += speed;
     };
-    if (child.y == 580) {
-        child.y += 1;
+    if ((child.y >580)&&(child.active == true)) {
         self.enemygroup.killAndHide(child);
         child.body.enable = false;
         self.numenemys -= 1;
-        self.health -= 4;
+        percentage -= 4;
     };
 }
 }
@@ -32,6 +31,8 @@ export let numbers = 1;
 export function bulletcreate1(self,x,y,angle) {
     var bullet = self.bulletgroup.create(x,y,'');
     bullet.angle = angle;
+    bullet.displayWidth = 15;
+    bullet.scaleY = bullet.scaleX;
     bullet.lifespan = 800;
 }
 export function wave(self) {
@@ -56,3 +57,14 @@ export function wave(self) {
         self.numenemys += 1;
     }
 }
+export let percentage = 100;
+var healthbarshadow = Phaser.Geom.Rectangle.FromXY(50, 490, 170, 540);
+var healthbar = Phaser.Geom.Rectangle.FromXY(60, 500, 60 + percentage, 540);
+export function drawAll(graphics) {
+    graphics.clear();
+    graphics.fillStyle(16777215,100)
+    graphics.fillRectShape(healthbarshadow);
+    graphics.fillStyle(7995136,100)
+    graphics.fillRectShape(healthbar);
+    path1(null,null,true,graphics);
+};
