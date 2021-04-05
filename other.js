@@ -58,13 +58,14 @@ export function wave(self) {
     }
 }
 export let percentage = 100;
-var healthbarshadow = Phaser.Geom.Rectangle.FromXY(50, 490, 170, 540);
-var healthbar = Phaser.Geom.Rectangle.FromXY(60, 500, 60 + percentage, 540);
+var healthbarshadow = Phaser.Geom.Rectangle.FromXY(260, 490, 380, 540);
+var healthbar = new Phaser.Geom.Rectangle(270, 500, percentage, 30);
 export function drawAll(graphics) {
     graphics.clear();
-    graphics.fillStyle(16777215,100)
+    healthbar.width = percentage;
+    graphics.fillStyle(16777215,100);
     graphics.fillRectShape(healthbarshadow);
-    graphics.fillStyle(7995136,100)
+    graphics.fillStyle(6749952,100);
     graphics.fillRectShape(healthbar);
     path1(null,null,true,graphics);
 };
