@@ -39,13 +39,13 @@ export function bulletcreate1(self,x,y,angle) {
 export function wave(self) {
     if(((Math.floor(Math.random() * 3)))==1){
         // boss wave!
-        var health = Math.floor(Math.random() * (75 - 50) + 50); // random between 50 and 75
+        var health = Math.floor(Math.random() * (65 - 40) + 40); // random between 50 and 75
         var enemy = self.enemygroup.create(40,40,'enemy');
         enemy.displayWidth = 60;
         enemy.scaleY = enemy.scaleX;
         enemy.setDataEnabled()
         enemy.data.set('health',health);
-        enemy.data.set('speed',0.8);
+        enemy.data.set('speed',0.6);
         self.numenemys += 1;
         enemy.data.set('boss','true')
         level += 1;
