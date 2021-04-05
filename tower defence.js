@@ -121,8 +121,9 @@ function refresh() {
         };
         this.enemygroup.children.iterate(function (child){
             other.path1(child,this);
-            if (child.data.values.health < 1) {
+            if ((child.data.values.health < 1)&&(child.active == true)) {
                 this.enemygroup.killAndHide(child);
+                this.numenemys -= 1;
             }
         },this);
         this.bulletgroup.children.iterate(function (child) {

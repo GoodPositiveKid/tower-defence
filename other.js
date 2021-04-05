@@ -11,11 +11,11 @@ export function path1(child,self,drawPath,graphics) {
         graphics.strokePath();
     }else {
     if (child.y < 299) {
-        child.y+=speed;
+        child.y+=child.data.values.speed;
     } else if ((child.y>298)&&(child.x<554)) {
-        child.x+= speed;
+        child.x+=child.data.values.speed;
     } else if ((child.x > 553)&&(child.x<581)) {
-        child.y += speed;
+        child.y +=child.data.values.speed;
     };
     if ((child.y >580)&&(child.active == true)) {
         self.enemygroup.killAndHide(child);
@@ -31,7 +31,7 @@ export let numbers = 1;
 export function bulletcreate1(self,x,y,angle) {
     var bullet = self.bulletgroup.create(x,y,'');
     bullet.angle = angle;
-    bullet.displayWidth = 15;
+    bullet.displayWidth = 25;
     bullet.scaleY = bullet.scaleX;
     bullet.lifespan = 800;
 }
@@ -43,11 +43,9 @@ export function wave(self) {
     } else {
         if (level ==1) {
             numbers = 1;
-            speed =1;
-            level += 1
+            level += 1;
         } else {
             numbers = Math.floor(Math.random() * (10 - 5) + 5);
-            speed = Math.floor(Math.random() * (5 - 1) + 1);
             level += 1;
         }
     }
@@ -56,6 +54,9 @@ export function wave(self) {
         enemy.y += Math.floor(Math.random() * (70 + 20) -20);
         enemy.setDataEnabled();
         enemy.data.set('health',Math.floor(Math.random() * (3 - 2) + 2));
+        if (level == 1) {enemy.data.set('speed',1);}else{
+        enemy.data.set('speed',Math.floor(Math.random() * (5 - 1) + 1));
+        }
         self.numenemys += 1;
     }
 }
