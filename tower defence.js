@@ -43,7 +43,7 @@ function create() {
     other.path1(null,this,true,this.graphics);
     this.camera.setBackgroundColor("#013220");
     this.moneytext = this.add.text(70,20,'money: $'+inventory.money,{fontsize:30,color:'#FF0000'});
-    this.shoptext1 = this.add.text(460,80,'Red Cannon:$25',{fontsize:12,color:'#0000FF'})
+    this.shoptext1 = this.add.text(460,80,'Red Cannon:$25')
     this.cannon1group = this.physics.add.group({defaultkey:'redcannon'})
     this.enemygroup = this.physics.add.group({defaultkey:'enemy'});
     this.bulletgroup = this.physics.add.group({defaultkey:''})
@@ -123,7 +123,7 @@ function refresh() {
             other.path1(child,this);
         },this);
         this.bulletgroup.children.iterate(function (child) {
-            var vec = this.physics.velocityFromAngle(child.angle, 0.4);
+            var vec = this.physics.velocityFromAngle(child.angle, 1);
             var vx = vec.x * 300;
             var vy = vec.y * 300;
             child.setVelocity(vx,vy);

@@ -21,7 +21,7 @@ export function path1(child,self,drawPath,graphics) {
         self.enemygroup.killAndHide(child);
         child.body.enable = false;
         self.numenemys -= 1;
-        percentage -= 4;
+        percentage -= 1;
     };
 }
 }
@@ -58,8 +58,8 @@ export function wave(self) {
     }
 }
 export let percentage = 100;
-var healthbarshadow = Phaser.Geom.Rectangle.FromXY(260, 490, 380, 540);
-var healthbar = new Phaser.Geom.Rectangle(270, 500, percentage, 30);
+var healthbarshadow = new Phaser.Geom.Rectangle(360, 540, 120, 50);
+var healthbar = new Phaser.Geom.Rectangle(370, 550, percentage, 30);
 export function drawAll(graphics) {
     graphics.clear();
     healthbar.width = percentage;
