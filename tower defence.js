@@ -107,9 +107,7 @@ function refresh() {
             var lose=document.createElement("H1");
             lose.textContent = "YOU LOSE!!!"
             document.getElementById("game").appendChild(lose);
-            setTimeout(function(){
-            document.getElementById("game").remove()
-            document.getElementById("bar").remove()},3000);
+            setTimeout(function(){document.getElementById("game").remove()},3000);
         } else {
             // code to open store
             this.shopIcon1.visible = true;
@@ -122,6 +120,7 @@ function refresh() {
         this.enemygroup.children.iterate(function (child){
             other.path1(child,this);
             if ((child.data.values.health < 1)&&(child.active == true)) {
+                inventory.changemoney(1)
                 this.enemygroup.killAndHide(child);
                 this.numenemys -= 1;
             }
@@ -138,7 +137,9 @@ function refresh() {
     }
 }
 function killEnemy(bullet,enemy){
+    if (enemy.active == true) {
     enemy.data.values.health -= 1;
     this.bulletgroup.killAndHide(bullet);
     bullet.body.enable=false;
+    }
 };
