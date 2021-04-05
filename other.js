@@ -54,6 +54,8 @@ export function wave(self) {
     for (var i =0;i<numbers;i++){
         var enemy = self.enemygroup.create(40,40,'enemy');
         enemy.y += Math.floor(Math.random() * (70 + 20) -20);
+        enemy.setDataEnabled();
+        enemy.data.set('health',Math.floor(Math.random() * (3 - 2) + 2));
         self.numenemys += 1;
     }
 }

@@ -121,6 +121,9 @@ function refresh() {
         };
         this.enemygroup.children.iterate(function (child){
             other.path1(child,this);
+            if (child.data.values.health < 1) {
+                this.enemygroup.killAndHide(child);
+            }
         },this);
         this.bulletgroup.children.iterate(function (child) {
             var vec = this.physics.velocityFromAngle(child.angle, 1);
@@ -134,10 +137,7 @@ function refresh() {
     }
 }
 function killEnemy(bullet,enemy){
-    this.enemygroup.killAndHide(enemy);
+    enemy.data.values.health -= 1;
     this.bulletgroup.killAndHide(bullet);
-    enemy.body.enable=false;
     bullet.body.enable=false;
-    inventory.changemoney(0.5);
-    this.numenemys -= 1;
 };
