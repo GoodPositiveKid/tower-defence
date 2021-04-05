@@ -120,7 +120,11 @@ function refresh() {
         this.enemygroup.children.iterate(function (child){
             other.path1(child,this);
             if ((child.data.values.health < 1)&&(child.active == true)) {
-                inventory.changemoney(1)
+                if (child.data.values.boss) {
+                inventory.changemoney(25)
+                } else {
+                    inventory.changemoney(1)
+                }
                 this.enemygroup.killAndHide(child);
                 this.numenemys -= 1;
             }
