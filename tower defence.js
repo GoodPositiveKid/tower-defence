@@ -138,6 +138,6 @@ function killEnemy(bullet,enemy){
     this.bulletgroup.killAndHide(bullet);
     enemy.body.enable=false;
     bullet.body.enable=false;
-    inventory.changemoney(0.2);
+    inventory.changemoney(2.5);
     this.numenemys -= 1;
 };
