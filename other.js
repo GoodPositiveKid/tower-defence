@@ -34,7 +34,7 @@ export function bulletcreate1(self,x,y,angle) {
     bullet.angle = angle;
     bullet.displayWidth = 25;
     bullet.scaleY = bullet.scaleX;
-    bullet.lifespan = 800;
+    bullet.lifespan = 200;
 }
 export function wave(self) {
     if(((Math.floor(Math.random() * 3)))==1){
